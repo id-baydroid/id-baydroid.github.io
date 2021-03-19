@@ -1,1 +1,247 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>BAY DROID</title>
+  <link rel="stylesheet" href="/include/bootstrap.min.css">
+  <meta name="theme-color" content="#E60022">
+  <link rel="apple-touch-icon" sizes="180x180" href="res/apple-touch-icon.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="res/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="res/favicon-16x16.png">
+  <link rel="manifest" href="res/site.webmanifest">
+  <style>
+    @font-face {
+      font-family: baydroid-sans;
+      src: url('/fonts/baydroid-sans.ttf');
+    }
 
+    body {
+      font-family: "baydroid-sans", sans-serif;
+    }
+
+    .ext-container {
+      padding-top: 30px;
+    }
+
+    .subs {
+      border-radius: 30px;
+      padding-left: 28px;
+      padding-right: 28px;
+      padding-top: 10px;
+      padding-bottom: 10px;
+    }
+
+    .bell {
+      display: inline-block;
+      height: 24px;
+      width: 24px;
+    }
+
+    .card {
+      border: none;
+      box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.2);
+    }
+
+    footer {
+      background-color: #f1f1f1;
+      padding: 20px;
+    }
+
+    .bg-white {
+      padding: 0 !important;
+      box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.2);
+      background-color: #fff
+    }
+
+    .nav-bay {
+      font-size: 18px;
+    }
+
+    .b-menu-m {
+      background-color: #fff;
+      box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.2);
+      position: fixed;
+      height: 100%;
+      width: 200px;
+      top: 0;
+      left: -300px;
+      z-index: 999;
+      padding-top: 60px !important;
+      -webkit-transition: left 0.3s;
+      padding-left: 18px;
+      padding-right: 14px;
+    }
+
+    .b-menu-m a {
+      color: #444;
+      font-size: 14px;
+    }
+    .b-menu-m ul{
+      list-style: none;
+      margin:0;
+      padding-left:0;
+    }
+    .b-menu-m li{
+      padding-top: 5px;
+      padding-bottom: 5px;
+      border-bottom: 1px solid #efefef;
+    }
+    .b-menu-m-wrap {
+      width: 100%;
+      height: 100%;
+      top: 0;
+      z-index: 999;
+      position: fixed;
+      background: #000;
+      opacity: 0.5;
+      display: none;
+    }
+
+    @media only screen and (max-width: 600px) {}
+
+    .m-toggle {
+      display: flex;
+      flex-direction: column;
+      cursor: pointer;
+      border: none !important;
+      outline: none !important;
+
+    }
+
+    .m-toggle span {
+      background: #444;
+      border-radius: 7px;
+      height: 3px;
+      transition: .3s cubic-bezier(0.68, -0.6, 0.32, 1.6);
+
+    }
+
+    .m-toggle span:nth-of-type(1) {
+      width: 18px;
+      margin-bottom: 5px;
+    }
+
+    .m-toggle span:nth-of-type(2) {
+      width: 24px;
+      margin-bottom: 5px;
+    }
+
+
+    .m-toggle span:nth-of-type(3) {
+      width: 18px;
+
+    }
+
+    .m-toggle input[type="checkbox"] {
+      display: none;
+    }
+
+    .m-toggle input[type="checkbox"]:checked~span:nth-of-type(1) {
+      transform: rotate(-40deg);
+      margin-bottom: 3px;
+
+    }
+
+    .m-toggle input[type="checkbox"]:checked~span:nth-of-type(2) {
+      margin-left: 1px;
+      margin-bottom: 3px;
+    }
+
+    .m-toggle input[type="checkbox"]:checked~span:nth-of-type(3) {
+      transform: rotate(40deg);
+    }
+  </style>
+  <script src="/include/jquery.min.js"></script>
+</head>
+
+<body>
+  <nav class="navbar navbar-light fixed-top bg-white mb-5">
+    <div class="container">
+      <a class="navbar-brand nav-bay" href="/">
+        <img class="mr-2" src="/img/baydroid-logo-hdpi.png" width="38" height="38" alt="BAY DROID">
+      </a>
+      <label class="navbar-toggler m-toggle" for="check">
+        <input type="checkbox" id="check" />
+        <span></span>
+        <span></span>
+        <span></span>
+      </label>
+    </div>
+  </nav>
+  <div class="b-menu-m-wrap"></div>
+  <div class="b-menu-m">
+    <ul>
+      <li><a href="/">Home</a></li>
+      <li><a href="/mod-menu-ff">Mod Menu Free Fire</a></li>
+    </ul>
+  </div>
+  <div class="container ext-container">
+    <div class="card mt-5">
+      <div class="card-body text-center">
+        <img width="114" height="114" src="/img/baydroid-logo.png" class="rounded mx-auto d-block mb-2" alt="BAY DROID" />
+        <h4>BAY DROID</h4>
+        <p>Android | Gaming | Tutorial</p>
+        <a href="https://bit.ly/BayDroid" class="btn btn-danger subs btn-md mt-3"><img class="bell mr-2" src="/img/bell.png" /><b>SUBSCRIBE</b></a>
+      </div>
+    </div>
+    <div class="card mt-5">
+      <div class="card-header">Latest Video</div>
+      <div class="card-body text-center">
+        <div id="video"></div>
+      </div>
+    </div>
+  </div>
+  <script>
+    $(document).ready(function() {
+      $("input[type=checkbox]").prop('checked', false);
+      $.ajax({
+        url: '/youtube.json',
+        type: 'get',
+        dataType: 'JSON',
+        success: function(data) {
+          for (var i = 0; i < data.url.length; i++) {
+            var item = data.url[i];
+            var i_str =
+              "<div class='embed-responsive embed-responsive-16by9'>" +
+              "<iframe class='embed-responsive-item' src='https://www.youtube.com/embed/" + item + "'>" +
+              "<iframe></div>";
+            $("#video").append(i_str);
+          }
+        },
+        error: function(err) {
+          console.log(err);
+        }
+      }); //
+      $('input[type=checkbox]').change(function() {
+        if ($(this).is(':checked')) {
+          $(".b-menu-m").css("left", 0);
+          $(".b-menu-m-wrap").fadeIn();
+        } else {
+          $(".b-menu-m").css("left", -300);
+          $(".b-menu-m-wrap").fadeOut();
+        }
+      }); //
+      $(".b-menu-m-wrap").click(function() {
+        $("input[type=checkbox]").prop('checked', false);
+        $(".b-menu-m").css("left", -300);
+        $(".b-menu-m-wrap").fadeOut();
+      }); //
+
+    });
+  </script>
+  <footer class="text-center mt-5">
+    <a class="mr-2" href="https://t.me/BayDroid">
+      <?xml version="1.0" encoding="UTF-8" standalone="no"?>
+      <!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd"><svg fill="#0088cc" width="24px" height="24px" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" xml:space="preserve" xmlns:serif="http://www.serif.com/" style="fill-rule:evenodd;clip-rule:evenodd;stroke-linejoin:round;stroke-miterlimit:1.41421;">
+        <path id="telegram-4" d="M12,0c-6.626,0 -12,5.372 -12,12c0,6.627 5.374,12 12,12c6.627,0 12,-5.373 12,-12c0,-6.628 -5.373,-12 -12,-12Zm3.224,17.871c0.188,0.133 0.43,0.166 0.646,0.085c0.215,-0.082 0.374,-0.267 0.422,-0.491c0.507,-2.382 1.737,-8.412 2.198,-10.578c0.035,-0.164 -0.023,-0.334 -0.151,-0.443c-0.129,-0.109 -0.307,-0.14 -0.465,-0.082c-2.446,0.906 -9.979,3.732 -13.058,4.871c-0.195,0.073 -0.322,0.26 -0.316,0.467c0.007,0.206 0.146,0.385 0.346,0.445c1.381,0.413 3.193,0.988 3.193,0.988c0,0 0.847,2.558 1.288,3.858c0.056,0.164 0.184,0.292 0.352,0.336c0.169,0.044 0.348,-0.002 0.474,-0.121c0.709,-0.669 1.805,-1.704 1.805,-1.704c0,0 2.084,1.527 3.266,2.369Zm-6.423,-5.062l0.98,3.231l0.218,-2.046c0,0 3.783,-3.413 5.941,-5.358c0.063,-0.057 0.071,-0.153 0.019,-0.22c-0.052,-0.067 -0.148,-0.083 -0.219,-0.037c-2.5,1.596 -6.939,4.43 -6.939,4.43Z" /></svg></a>
+    <a class="mr-2" href="https://bit.ly/BayDroid"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="#c4302b" viewBox="0 0 24 24">
+        <path d="M12 0c-6.627 0-12 5.373-12 12s5.373 12 12 12 12-5.373 12-12-5.373-12-12-12zm4.441 16.892c-2.102.144-6.784.144-8.883 0-2.276-.156-2.541-1.27-2.558-4.892.017-3.629.285-4.736 2.558-4.892 2.099-.144 6.782-.144 8.883 0 2.277.156 2.541 1.27 2.559 4.892-.018 3.629-.285 4.736-2.559 4.892zm-6.441-7.234l4.917 2.338-4.917 2.346v-4.684z" /></svg></a>
+    <a href="https://fb.me/baydroid"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="#3b5998" viewBox="0 0 24 24">
+        <path d="M12 0c-6.627 0-12 5.373-12 12s5.373 12 12 12 12-5.373 12-12-5.373-12-12-12zm3 8h-1.35c-.538 0-.65.221-.65.778v1.222h2l-.209 2h-1.791v7h-3v-7h-2v-2h2v-2.308c0-1.769.931-2.692 3.029-2.692h1.971v3z" /></svg></a>
+    <hr />
+    <small>© 2021 <a href="https://bit.ly/BayDroid">BAY DROID</a></small>
+  </footer>
+</body>
+
+</html>
