@@ -2,3 +2,6 @@ User-agent: *
 Disallow: /res/
 Disallow: /fonts/
 Disallow: /include/
+Disallow: /b-mod.json
+Disallow: /CNAME
+Disallow: /youtube.json
